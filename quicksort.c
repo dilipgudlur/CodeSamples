@@ -29,10 +29,6 @@ int partition(int *arr, int start, int end) {
     }
     if(pIndex != end)
         swap(&arr[pIndex], &arr[end]);
-    printf("Pindex is %d\n", pIndex);
-    for(i = start; i <= end; i++)
-        printf("%d\t", arr[i]);
-    printf("\n");
     return pIndex;
 }
 
