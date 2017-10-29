@@ -1,11 +1,5 @@
 #include<stdio.h>
-
-void swap(int *a, int *b) {
-    *a = *a ^ *b;
-    *b = *a ^ *b;
-    *a = *a ^ *b;
-}
-
+#include<stdlib.h>
 void merge(int *arr, int *left, int numL, int *right, int numR) {
 
     if(!arr)
@@ -13,10 +7,25 @@ void merge(int *arr, int *left, int numL, int *right, int numR) {
 
     int l = 0;
     int r = 0;
+    int i = 0;
 
-    for(;l < numL && r < numR;) {
-        if(left[l] < right[r]
+    while(l < numL && r < numR) {
+        if(left[l] <= right[r])
+            arr[i++] = left[l++];
+        else if(left[l] > right[r])
+            arr[i++] = right[r++];
     }
+
+    while(l < numL) {
+        arr[i++] = left[l++];
+    }
+
+    while(r < numR) {
+        arr[i++] = right[r++];
+    }
+
+    free(left);
+    free(right);
 }
 
 void mergesort(int *arr, int start, int end) {
@@ -33,8 +42,8 @@ void mergesort(int *arr, int start, int end) {
     int *left = (int*)malloc(numL*sizeof(int));
     int *right = (int*)malloc(numR*sizeof(int));
 
-    left = &arr[start];
-    right = &arr[mid+1];
+    left = arr + start;
+    right = arr + mid + 1;
 
     mergesort(left, start, mid);
     mergesort(right, mid + 1, end);
