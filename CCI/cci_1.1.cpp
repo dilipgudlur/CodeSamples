@@ -1,4 +1,8 @@
-// For string search problems, trick is to use a bool/int array to keep track of chars that have already occurred. This brings insertiong/search complexity to O(1)
+/* Is Unique: Implement an algorithm to determine if a string has all unique characters.
+What if you cannot use additional data structures? */
+
+/* Trick: For string search problems, trick is to use a bool/int array to keep track of chars
+ that have already occurred. This brings insertiong/search complexity to O(1) */
 #include <iostream>
 #include <string>
 
