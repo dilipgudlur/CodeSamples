@@ -10,13 +10,18 @@ original string, your method should return the original string. You can assume t
 letters (a -z).
 */
 
+/*Note: avoid the + operator for concatenating, it creates a new instance by first copying the original string
+and then concatenating the new ones. Instead use either the += OR append function */
+
 string compress(string s) {
     string result = "";
     size_t n = s.size();
     if(!n)
         return result;
     if(n == 1) {
-        result += s + "1";
+        //Note: AVOID USING + operator to concatenate, instead use +=
+        result += s;
+        result += "1";
         return result.size() < n ? result : s;
     }
         
@@ -29,13 +34,16 @@ string compress(string s) {
             j++;
         }
         else {
-            result += s[i] + to_string(j-i);
+            //Note: AVOID USING + operator to concatenate, instead use +=
+            result += s[i];
+            result += to_string(j-i);
             i = j;
             j++;
         }
     }
-    
-    result += s[i] + to_string(n-i); //completes the remaining string
+    //Note: AVOID USING + operator to concatenate, instead use +=
+    result += s[i];
+    result += to_string(n-i);
     
     return result.size() < n ? result : s;
 }
@@ -44,8 +52,10 @@ int main()
 {
     //string s = "aaaadbbbcccccaaa";
     string s = "a";
-    
+    clock_t t;
+    t = clock();
     string out = compress(s);
+    cout << "time consumed is " << clock()-t <<endl;
     cout << "Compressed string is " << out <<endl;
    
     return 0;
