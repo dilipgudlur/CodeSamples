@@ -85,10 +85,7 @@ void sumDigitsInReverse(NODE* headA, NODE* headB,int carry) {
 }
 
 //Iterative solution
-void sumDigitsInReverse(NODE* headA, NODE* headB) {
-    
-    NODE* l1 = headA;
-    NODE* l2 = headB;
+void sumDigitsInReverse(NODE* l1, NODE* l2) {
     
     if(!l1 && !l2)
         return;
@@ -96,29 +93,26 @@ void sumDigitsInReverse(NODE* headA, NODE* headB) {
     int sum = 0;
     int carry = 0;
     
-    while(l1 && l2) {
-        sum = (l1->val + l2->val + carry)%10;      
+    //this is a better method as it reduces the code
+    while(l1 || l2) {
+        int tmp = 0;
+        if(l1) {
+            tmp += l1->val;
+            l1 = l1->next;
+        }
+        if(l2) {
+            tmp += l2->val;
+            l2 = l2->next;
+        }
+        
+        tmp += carry;
+        sum = tmp%10;
+        carry = tmp/10;
+        
         addToList(headC,sum);
-        carry = (l1->val + l2->val + carry)/10;
-        l1 = l1->next;
-        l2 = l2->next;
     }
     
-    while(l1) {
-        sum = (l1->val + carry)%10;
-        addToList(headC,sum);
-        carry = (l1->val + carry)/10;
-        l1 = l1->next;
-    }
-    
-    while(l2) {
-        sum = (l2->val + carry)%10;
-        addToList(headC,sum);
-        carry = (l2->val + carry)/10;
-        l2 = l2->next;
-    }
-    
-    if(carry) { //carry can be zero
+    if(carry) { //carry can be non-zero even when the nodes are finished
         addToList(headC,carry);
     }
 }
