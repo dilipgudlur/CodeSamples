@@ -13,6 +13,15 @@ structure (such as an array). The stack supports the following operations: push,
 //push only those that are smaller than the incoming element. While st.top < incoming element, push st.top onto tmp stack, then push the incoming
 //element to st, then push back the elements from tmp stack to st. Refer to sortAndPush function
 
+
+/*This algorithm is O ( N2) time and O ( N) space. 
+If we were allowed to use unlimited stacks, we could implement a modified quicksort or mergesort. 
+With the mergesort solution, we would create two extra stacks and divide the stack into two parts. We would recursively sort each stack, 
+and then merge them back together in sorted order into the original stack. Note that this would require the creation of two additional stacks per level of recursion. 
+With the quicksort solution, we would create two additional stacks and divide the stack into the two stacks based on a pivot element. 
+The two stacks would be recursively sorted, and then merged back together into the original stack. 
+Like the earlier solution, this one involves creating two additional stacks per level of recursion*/
+
 class SortedStack {
 private:
     stack<int> st;
