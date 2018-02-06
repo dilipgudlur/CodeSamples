@@ -13,7 +13,7 @@ Output N = 10000100110
 void bitMerge(int& n, int m, int i, int j) {
     //1.clear out the bits from i to j in n: two approaches to clear bitsfrom i to j
     
-    //a.either generate a mask by mobing 1 iteratively from i to j in a loop such that only bits from i to j are 1's, now flip this mask to reverse 1's to 0's 
+    //a.either generate a mask by moving 1 iteratively from i to j in a loop such that only bits from i to j are 1's, now flip this mask to reverse 1's to 0's 
     int mask = 0;
     for(int x = i;x <= j;x++) {
         mask |= 1 << x;
@@ -26,6 +26,11 @@ void bitMerge(int& n, int m, int i, int j) {
     int rightOnes = (1 << i) - 1; //this is a useful trick, subtracting 1 from 1000 gives, 0111
     mask = leftOnes | rightOnes; //final mask with bits i to j cleared
     
+    //c. generate 00..00111 and then shift it left to adjust to the right bit position
+    int mask = 1 << (j-i+1);
+    mask -= 1;
+    mask <<= i; //this creates similar mask as a and b
+
     n &= mask; //clears the bits of n
     
     //2.shift m to align such that last bit of m is at position i
