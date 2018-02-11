@@ -10,28 +10,35 @@ Output: 8 (the index of 5 in the array)
 //if the target lies within the range of elements in that side.
 //If not then search in the other side.
 
- int search(vector<int>& nums, int target) {
+int search(vector<int>& nums, int target) {
         size_t n = nums.size();
         if(!n)
-            return -1;
+            return false;
+        
         int l = 0;
         int h = n-1;
+        
         while(l <= h) {
-            int m = (l+h)/2;
-            if(target == nums[m])
+            int m = (l+h) >> 1;
+            
+            if(nums[m] == target)
                 return m;
-            //find which side is sorted normally
-            else if(nums[l] <= nums[m]) {//left is sorted normally
-                if(target >= nums[l] && target <= nums[m])
-                    h = m-1; //search on left side
-                else
-                    l = m+1; //search on right side
+            
+            else if(nums[l] == nums[m] && nums[m] == nums[h]) {
+                l++;h--;
             }
-            else { //right is sorted normally
-                if(target >= nums[m] && target <= nums[h])
-                    l = m+1; //search on right side
+            
+            else if(nums[l] > nums[m]) { //right side is sorted normally
+                if(target > nums[m] && target <= nums[h])
+                    l = m+1; //search right
                 else
-                    h = m-1; //search on left side
+                    h = m-1; //search left
+            }
+            else if(nums[l] <= nums[m]) { //left sorted normally
+                if(target >= nums[l] && target < nums[m])
+                    h = m-1; //search left
+                else
+                    l = m+1; //search right
             }
         }
         return -1;
