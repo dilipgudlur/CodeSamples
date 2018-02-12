@@ -14,6 +14,14 @@ Output: 4*/
 //use the nearest non-empty string to continue the search. Start with sdjoining elements, if both are
 //empty then start expanding towards their adjoining elements 
 
+/*Note: The worst-case runtime for this algorithm is O ( n). In fact, it's impossible to have an 
+algorithm for this problem that is better than O(n) in the worst case. After all, you could have 
+an array of all empty strings except for one non-empty string. There is no "smart" way to find this 
+non-empty string. In the worst case, you will need to look at every element in the array. 
+Careful consideration should be given to the situation when someone searches fort he empty string. 
+Should we find the location (which is an O( n) operation)? Or should we handle this as an error? 
+*/
+
 int sparseSearch(vector<string> a,string target) {
     
     if(!a.size() || !target.size())
