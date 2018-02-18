@@ -11,6 +11,7 @@ using namespace std;
 
 /*Quicksort - Avg case runtime is O(nlogn), worstcase runtime is O(n^2). Using randomized key, worst case can also be brought down to O(nlgn) */
 /* Complexity analysis
+
 a. Best case [O(nlgn)] - At each step, problem of n elements is split into two equal halves on n/2:
 At step1, Tn = 2T(n/2) + n*c where c is the time taken in partition function and the function operates on the whole range of n elements so n*c.
 At step2, Tn = 2[2T(n/4) + (n/2)*c] + nc = 4T(n/4) + 2nc
@@ -19,7 +20,8 @@ At step k, Tn = 2^k * T(n/2^k) + k*n*c
 We know T(1) is constant operation of c1, so after how many steps k, will n become 1 which means n/2^k = 1, so after k = lgn steps n becomes 1
 Replacing, 2^k with 1 and k with lgn (lg n means logn with base 2)
 Tn = n*c1 + lgn * n * c = O(nlgn)
-b. Worst Case [O(n&2)] but with randomized sort gets reduced to O(nlgn) - at each step, problem is reduced by only 1. This happens in an already sorted array
+
+b. Worst Case [O(n^2)] but with randomized sort gets reduced to O(nlgn) - at each step, problem is reduced by only 1. This happens in an already sorted array
 Example - 1 2 3 4 5 6, here if last element is chosen as key, partition function would return the pivot index as the last element. SO for next step, sub array will include uptill 5, then 4 then 3.
 Tn = T(n-1) + n*c at 1st step
 Tn = (T(n-2) + n*c) + n*c = T(n-2) + 2*n*c, at 2nd step
