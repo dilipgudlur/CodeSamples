@@ -21,8 +21,8 @@ Tn = n*c1 + lgn * n * c = O(nlgn)
 */
 
 void randomize(vector<int>& a, int low, int high) {
-    srand(time(NULL));
-    int randomIndex = low + rand() % (high-low+1); //have to seed srand otherwise gives same result
+    int range = high-low+1;
+    int randomIndex = low + (rand() % range); //have to seed srand otherwise gives same result
     swap(a[randomIndex],a[high]); //instead of choosing a random index and making it pivot, swap it with the last element so rest of algo remains same
 }
 int partition(vector<int>& a,int low,int high) {
