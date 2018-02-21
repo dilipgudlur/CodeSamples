@@ -4,7 +4,8 @@ depth D, you'll have D linked lists). */
 
 //Approach: use a vector of list nodes vector<list<node*>>
 
-  void listify(node* root, int height, vector<list<node*>>& listy) {
+  //similar to preorder traversal
+  void listifyRecursive(node* root, int height, vector<list<node*>>& listy) {
         if(!root)
             return;
         
@@ -22,6 +23,34 @@ depth D, you'll have D linked lists). */
         listify(root->right,height+1,listy);
     }
 
+    //similar to bfs search
+    void listifyIterative(node* root, vector<list<node*>>& listy) {
+        queue<node*> q;
+        list<node*> currentList;
+        if(!root)
+            return;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty()) {
+            node* tmp = q.front();
+            q.pop();
+            if(tmp != NULL) { //add in the same list
+                currentList.push_back(tmp);
+                if(tmp->left)
+                    q.push(tmp->left);
+                if(tmp->right)
+                    q.push(tmp->right);
+            }
+            else { //start a new list
+                if(!currentList.empty()) {
+                    listy.push_back(currentList); //push the current list, this completes current list
+                    q.push(NULL);
+                    currentList.clear();
+                }
+            }
+        }
+    }
+
 int main()
 {
     node* root = NULL;    
@@ -30,7 +59,8 @@ int main()
         root = insert(vec[i],root);
     int height = 0;
     vector<list<node*>> listy;
-    listify(root,height,listy);
+    listifyRecursive(root,height,listy);
+    listifyIterative(root,listy);
     for(int i = 0;i < (int)listy.size();i++) {
         cout << "List at depth " << i << endl;
         list<node*>::iterator it;
