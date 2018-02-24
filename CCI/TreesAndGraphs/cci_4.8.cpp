@@ -18,9 +18,9 @@ so return the subtree which is non null
 c. if both siddes do not have the node then return null to indicate the root doesn't have either p or q
 so search at a different subtree
 
-Complexit: this runs in O(n) complexity 
+Complexity: this runs in O(n) complexity 
 */
-
+    //This code is generic for a binary tree, doesn't necessarily mean a BST
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
         if (root == p || root == q || !root) {
@@ -34,4 +34,20 @@ Complexit: this runs in O(n) complexity
             return root; // This is the common ancestor 
         
         return leftside ? leftside : rightside; //return the non-null node, if both null then return null
+    }
+
+    //This code is for a BST, uses the BST rules
+     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+       
+        if(!root)
+            return root;
+        
+        if((p->val <= root->val && q->val >= root->val) || (p->val >= root->val && q->val <= root->val))
+            return root;
+        
+        else if (p->val < root->val && q->val < root->val)
+            return lowestCommonAncestor(root->left, p, q);
+        
+        else if (p->val > root->val && q->val > root->val)
+            return lowestCommonAncestor(root->right, p, q);
     }
