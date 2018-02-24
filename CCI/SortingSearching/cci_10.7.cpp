@@ -19,3 +19,31 @@ b. so how many bytes are required to resent 2billion+1 numbers=  2^31/8 = 2^28 b
 c. How many bytes does 1 GB have - 1024 * 1024 * 1024 bytes = 2^30 bytes
 d. that means 1 GB memory is sufficient to store the bit vectore of 2^28 bytes.
 */
+
+#define CONTAINERS (INT_MAX+1)/32; //all 32 bits can be used to represent the numbers
+int uniqueNumber(FILE *fp) {
+
+   long vecRange = (long) (INT_MAX+1);//all 32 bits can be used to represent the numbers
+   int containers = math.ceiling(vecRange/32); //numbers of containers required, use ceiling to prevent shortage of containers
+   unsigned int vec[containers]; //array of unsigned ints
+   /*read the file, populate the bit vector*/
+   while(fp != EOF) { //read file till end
+      int index = fp.readline(); //lets assume readline will return an integer in the file
+      int containerNumber = index/32; //finds the right container number
+      int indexInContainer = index%32 //finds the index within the container
+      uniqueNumber[containerNumber] |= (1 << indexInContainer); //set that bit in the container, indicates that integer is present
+   }
+
+   //now bit vectore has been created, its time to search for unique integer
+
+   for(int i = 0;i < containers;i++) { //search amongst the containers
+      for(int j = 0;j < 32;j++) { //search within each container
+         if(vec[i] & (1 << j) == 0) {
+            /*in the container i, check if bit at position j is not set*/
+            //construct the number
+            return (32*i + j); //this is the first integer not contained in the file
+         }
+      }
+   }
+   return -1; //if control reaches here
+}
