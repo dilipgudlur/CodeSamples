@@ -26,7 +26,10 @@ void* aligned_malloc(size_t required_bytes, size_t alignment) {
 	((void**)q)[-1] = p; //save address of p at -1 th index of q. Reason for saving the address is that
 				//when q is returned to user, there is no idea of where is the start of the bigger chunk of
 				//memory(p) so that it can be freed. So we have to save the address of p somewhere so that it can
-				//be referenced later. Here we have saved at the start of q and can start it using -1 th index
+				//be referenced later. Here we have saved at the start of q and can start it using -1 th index. 
+				//Reason q is dereferenced as (void**) is because we have to save p at -1 th index of q, p is a
+				//void*, so we have to look at q like an array that holds void*'s. So to hold void* pointers, we
+				//pointer to a pointer hence void**
 	return q;
 }
 
